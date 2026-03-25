@@ -30,6 +30,8 @@
 }
 
 @layer components {
+  /* ─── Buttons ─────────────────────────────────────────── */
+
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-lg bg-brand-red px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-red-dark focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 disabled:opacity-50;
   }
@@ -42,15 +44,114 @@
     @apply inline-flex items-center justify-center rounded-lg bg-brand-black px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-brand-black focus:ring-offset-2 disabled:opacity-50;
   }
 
+  /* ─── Section headers with diagonal accent ────────────── */
+
   .section-header {
-    @apply bg-brand-red px-6 py-8 text-white md:py-12;
+    @apply relative overflow-hidden bg-brand-red px-6 py-10 text-white md:py-14;
   }
 
-  .section-header h2 {
-    @apply text-3xl font-black uppercase text-white;
+  .section-header::before {
+    content: "";
+    @apply pointer-events-none absolute right-0 top-0 h-40 w-40 md:h-56 md:w-56;
+    background: linear-gradient(
+      225deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      transparent 50%
+    );
   }
+
+  .section-header::after {
+    content: "";
+    @apply pointer-events-none absolute bottom-0 left-0 h-24 w-24 md:h-36 md:w-36;
+    background: linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.08) 50%,
+      transparent 50%
+    );
+  }
+
+  .section-header h1,
+  .section-header h2 {
+    @apply relative z-10 text-3xl font-black uppercase text-white;
+  }
+
+  .section-header p {
+    @apply relative z-10;
+  }
+
+  /* ─── Cards ───────────────────────────────────────────── */
 
   .card {
-    @apply rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md;
+    @apply rounded-xl border border-gray-100 bg-white shadow-sm transition-all hover:shadow-md;
+  }
+
+  /* ─── Event card image overlay on hover ───────────────── */
+
+  .card-event-cover {
+    @apply relative overflow-hidden;
+  }
+
+  .card-event-cover::after {
+    content: "";
+    @apply absolute inset-0 bg-brand-red/0 transition-colors duration-300;
+  }
+
+  .group:hover .card-event-cover::after {
+    @apply bg-brand-red/25;
+  }
+
+  /* ─── Diagonal accent (standalone decorator) ──────────── */
+
+  .diagonal-accent {
+    @apply pointer-events-none absolute right-0 top-0;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, transparent 50%, #b91c1c 50%);
+  }
+
+  .diagonal-accent-lg {
+    @apply pointer-events-none absolute right-0 top-0;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, transparent 50%, #b91c1c 50%);
+  }
+
+  .diagonal-accent-bottom {
+    @apply pointer-events-none absolute bottom-0 left-0;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(315deg, transparent 50%, #b91c1c 50%);
+  }
+
+  /* ─── Red separator between sections ──────────────────── */
+
+  .section-divider {
+    @apply mx-auto my-0 h-1.5 w-24 rounded-full bg-brand-red;
+  }
+
+  .section-divider-wide {
+    @apply my-0 h-1 w-full bg-gradient-to-r from-brand-red via-brand-red-vivid to-brand-red;
+  }
+
+  /* ─── Dark section (for visual rhythm) ────────────────── */
+
+  .section-dark {
+    @apply relative overflow-hidden bg-surface-dark text-white;
+  }
+
+  .section-dark h2,
+  .section-dark h3 {
+    @apply text-white;
+  }
+
+  /* ─── Hero pattern (subtle grid/noise on dark bg) ─────── */
+
+  .hero-pattern {
+    background-image:
+      linear-gradient(rgba(185, 28, 28, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(185, 28, 28, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 }

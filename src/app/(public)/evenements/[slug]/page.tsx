@@ -90,7 +90,7 @@ export default function EvenementDetailPage({ params }: EvenementDetailPageProps
     <main id="main-content">
       {/* Header bandeau */}
       <section className="section-header">
-        <div className="mx-auto max-w-4xl">
+        <div className="relative z-10 mx-auto max-w-4xl">
           <Link
             href="/evenements"
             className="mb-4 inline-flex items-center gap-1 text-sm text-white/70 transition-colors hover:text-white"
@@ -119,38 +119,56 @@ export default function EvenementDetailPage({ params }: EvenementDetailPageProps
       </section>
 
       {/* Content */}
-      <article className="mx-auto max-w-4xl px-4 py-12 md:px-6 lg:px-8">
+      <article className="mx-auto max-w-4xl px-4 py-14 md:px-6 lg:px-8">
         {/* Photo placeholder */}
-        <div className="mb-8 flex aspect-video items-center justify-center rounded-xl bg-surface-card">
+        <div className="relative mb-10 flex aspect-video items-center justify-center overflow-hidden rounded-xl bg-surface-card">
+          <div
+            className="absolute right-0 top-0 h-20 w-20 bg-gradient-to-bl from-brand-red/10 to-transparent"
+            aria-hidden="true"
+          />
           <span className="font-display text-sm font-bold uppercase tracking-wider text-gray-400">
             Galerie photos a venir
           </span>
         </div>
 
-        <section className="mb-8">
-          <h2 className="mb-4 text-2xl font-bold text-brand-red-dark">
-            Presentation
-          </h2>
+        <section className="mb-10">
+          <div className="mb-3 flex items-center gap-3">
+            <div className="h-8 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
+            <h2 className="text-2xl font-bold text-brand-red-dark">
+              Presentation
+            </h2>
+          </div>
           <p className="leading-relaxed text-gray-700">{event.description}</p>
         </section>
 
-        <section className="mb-8">
-          <h2 className="mb-4 text-2xl font-bold text-brand-red-dark">
-            Nos missions
-          </h2>
+        <div className="section-divider mb-10" aria-hidden="true" />
+
+        <section className="mb-10">
+          <div className="mb-3 flex items-center gap-3">
+            <div className="h-8 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
+            <h2 className="text-2xl font-bold text-brand-red-dark">
+              Nos missions
+            </h2>
+          </div>
           <p className="leading-relaxed text-gray-700">{event.missions}</p>
         </section>
 
+        <div className="section-divider mb-10" aria-hidden="true" />
+
         {/* CTA */}
-        <div className="rounded-xl border border-gray-100 bg-surface-card p-6 text-center">
-          <h3 className="text-xl font-bold text-brand-black">
+        <div className="relative overflow-hidden rounded-xl border border-gray-100 bg-surface-card p-8 text-center">
+          <div
+            className="absolute right-0 top-0 h-24 w-24 bg-gradient-to-bl from-brand-red/10 to-transparent"
+            aria-hidden="true"
+          />
+          <h3 className="relative z-10 text-xl font-bold text-brand-black">
             Envie de participer ?
           </h3>
-          <p className="mt-2 text-gray-600">
+          <p className="relative z-10 mt-2 text-gray-600">
             Rejoignez notre equipe de benevoles et vivez l&apos;evenement de
             l&apos;interieur.
           </p>
-          <Link href="/recrutement" className="btn-primary mt-4 inline-block">
+          <Link href="/recrutement" className="btn-primary relative z-10 mt-4 inline-block">
             Postuler comme benevole
           </Link>
         </div>

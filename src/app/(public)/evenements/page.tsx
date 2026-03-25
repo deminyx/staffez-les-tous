@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin, ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Nos evenements",
@@ -21,7 +21,7 @@ const PLACEHOLDER_EVENTS = [
       "Festival de culture pop, manga, jeux video et jeux de societe a Nantes. Staffez Les Tous assure l'accueil, la billetterie et la logistique benevole.",
     location: "Parc des Expositions, Nantes",
     date: "Novembre 2024",
-    coverColor: "bg-brand-red/20",
+    coverColor: "bg-brand-red/10",
   },
   {
     id: "2",
@@ -31,7 +31,7 @@ const PLACEHOLDER_EVENTS = [
       "Convention manga et anime avec concours cosplay, stands exposants et animations. L'equipe gere le staffing des espaces visiteurs.",
     location: "Zenith, Nantes",
     date: "Mars 2024",
-    coverColor: "bg-surface-dark/20",
+    coverColor: "bg-surface-dark/10",
   },
   {
     id: "3",
@@ -41,7 +41,7 @@ const PLACEHOLDER_EVENTS = [
       "Evenement gaming et esport avec tournois, espace retrogaming et conferences. Nos benevoles encadrent les tournois et la scene principale.",
     location: "Cite des Congres, Nantes",
     date: "Juin 2024",
-    coverColor: "bg-brand-red-dark/20",
+    coverColor: "bg-brand-red-dark/10",
   },
   {
     id: "4",
@@ -58,7 +58,7 @@ const PLACEHOLDER_EVENTS = [
 export default function EvenementsPage() {
   return (
     <main id="main-content">
-      {/* Header bandeau */}
+      {/* Header bandeau (diagonal accents via CSS) */}
       <section className="section-header text-center">
         <h1 className="text-4xl font-black uppercase md:text-5xl">
           Nos evenements
@@ -70,7 +70,7 @@ export default function EvenementsPage() {
       </section>
 
       {/* Event grid */}
-      <section className="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-14 md:px-6 lg:px-8">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {PLACEHOLDER_EVENTS.map((event) => (
             <Link
@@ -78,24 +78,26 @@ export default function EvenementsPage() {
               href={`/evenements/${event.slug}`}
               className="card group overflow-hidden transition-transform hover:-translate-y-1"
             >
-              {/* Cover placeholder */}
-              <div
-                className={`aspect-video ${event.coverColor} flex items-center justify-center`}
-              >
-                <span className="font-display text-sm font-bold uppercase tracking-wider text-gray-400">
-                  Photo a venir
-                </span>
+              {/* Cover placeholder with red overlay on hover */}
+              <div className="card-event-cover">
+                <div
+                  className={`aspect-video ${event.coverColor} flex items-center justify-center`}
+                >
+                  <span className="font-display text-sm font-bold uppercase tracking-wider text-gray-400">
+                    Photo a venir
+                  </span>
+                </div>
               </div>
 
               <div className="p-5">
-                <h2 className="font-display text-xl font-bold text-brand-black group-hover:text-brand-red">
+                <h2 className="font-display text-xl font-bold text-brand-black transition-colors group-hover:text-brand-red">
                   {event.title}
                 </h2>
                 <p className="mt-2 line-clamp-2 text-sm text-gray-600">
                   {event.description}
                 </p>
 
-                <div className="mt-4 flex flex-wrap gap-3 text-xs text-gray-500">
+                <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-gray-500">
                   {event.date && (
                     <span className="flex items-center gap-1">
                       <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
@@ -108,6 +110,10 @@ export default function EvenementsPage() {
                       {event.location}
                     </span>
                   )}
+                  <span className="ml-auto inline-flex items-center gap-0.5 font-medium text-brand-red opacity-0 transition-opacity group-hover:opacity-100">
+                    Voir
+                    <ChevronRight className="h-3 w-3" aria-hidden="true" />
+                  </span>
                 </div>
               </div>
             </Link>
