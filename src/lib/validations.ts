@@ -58,3 +58,122 @@ export const createInscriptionSchema = z.object({
 });
 
 export type CreateInscriptionInput = z.infer<typeof createInscriptionSchema>;
+
+// ─── Admin : Gestion des roles ────────────────────────────
+
+export const updateUserRolesSchema = z.object({
+  userId: z.string().min(1, "L'identifiant de l'utilisateur est requis"),
+  roles: z.array(
+    z.object({
+      role: z.enum(["EDITEUR", "ADMINISTRATEUR", "COORDINATEUR", "DEVELOPPEUR"]),
+      eventId: z.string().nullable().optional(),
+    }),
+  ),
+});
+
+export type UpdateUserRolesInput = z.infer<typeof updateUserRolesSchema>;
+
+export const toggleUserActiveSchema = z.object({
+  userId: z.string().min(1, "L'identifiant de l'utilisateur est requis"),
+  isActive: z.boolean(),
+});
+
+export type ToggleUserActiveInput = z.infer<typeof toggleUserActiveSchema>;
+
+// ─── Admin : Evenements ───────────────────────────────────
+
+export const eventFormSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Le titre est requis")
+    .max(200, "Le titre ne peut pas depasser 200 caracteres"),
+  slug: z
+    .string()
+    .min(1, "Le slug est requis")
+    .max(200, "Le slug ne peut pas depasser 200 caracteres")
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Le slug doit etre en format kebab-case"),
+  description: z
+    .string()
+    .min(1, "La description est requise")
+    .max(5000, "La description ne peut pas depasser 5000 caracteres"),
+  missions: z
+    .string()
+    .max(5000, "Les missions ne peuvent pas depasser 5000 caracteres")
+    .optional()
+    .or(z.literal("")),
+  location: z
+    .string()
+    .max(200, "Le lieu ne peut pas depasser 200 caracteres")
+    .optional()
+    .or(z.literal("")),
+  startDate: z.string().optional().or(z.literal("")),
+  endDate: z.string().optional().or(z.literal("")),
+  type: z.enum(["PRESTATION", "VIE_ASSOCIATIVE"]),
+  status: z.enum(["BROUILLON", "PUBLIE", "ARCHIVE"]),
+  coverImage: z
+    .string()
+    .max(500, "L'URL de l'image ne peut pas depasser 500 caracteres")
+    .optional()
+    .or(z.literal("")),
+  maxVolunteers: z
+    .number()
+    .int()
+    .min(1, "La capacite doit etre d'au moins 1")
+    .nullable()
+    .optional(),
+  inscriptionOpen: z.boolean().optional(),
+});
+
+export type EventFormInput = z.infer<typeof eventFormSchema>;
+
+// ─── Admin : Publications ─────────────────────────────────
+
+export const publicationFormSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Le titre est requis")
+    .max(200, "Le titre ne peut pas depasser 200 caracteres"),
+  content: z
+    .string()
+    .min(1, "Le contenu est requis")
+    .max(20000, "Le contenu ne peut pas depasser 20000 caracteres"),
+  category: z.enum(["NEWSLETTER", "ANNONCE_EVENEMENT", "ACTUALITE"]),
+  coverImage: z
+    .string()
+    .max(500, "L'URL de l'image ne peut pas depasser 500 caracteres")
+    .optional()
+    .or(z.literal("")),
+});
+
+export type PublicationFormInput = z.infer<typeof publicationFormSchema>;
+
+export const validatePublicationSchema = z.object({
+  publicationId: z.string().min(1, "L'identifiant de la publication est requis"),
+  action: z.enum(["APPROUVEE", "REJETEE"]),
+  comment: z
+    .string()
+    .max(1000, "Le commentaire ne peut pas depasser 1000 caracteres")
+    .optional()
+    .or(z.literal("")),
+});
+
+export type ValidatePublicationInput = z.infer<typeof validatePublicationSchema>;
+
+// ─── Admin : Gestion des inscriptions ─────────────────────
+
+export const updateInscriptionStatusSchema = z.object({
+  inscriptionId: z.string().min(1, "L'identifiant de l'inscription est requis"),
+  status: z.enum(["EN_ATTENTE", "VALIDEE", "REFUSEE"]),
+  position: z
+    .string()
+    .max(100, "Le poste ne peut pas depasser 100 caracteres")
+    .optional()
+    .or(z.literal("")),
+  schedule: z
+    .string()
+    .max(200, "Les horaires ne peuvent pas depasser 200 caracteres")
+    .optional()
+    .or(z.literal("")),
+});
+
+export type UpdateInscriptionStatusInput = z.infer<typeof updateInscriptionStatusSchema>;

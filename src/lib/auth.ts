@@ -119,7 +119,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return true;
       }
 
-      // Routes admin : role ADMINISTRATEUR ou DEVELOPPEUR requis
+      // Routes admin : au moins un role specifique requis
+      // (ADMINISTRATEUR, DEVELOPPEUR, EDITEUR, ou COORDINATEUR)
       if (pathname.startsWith("/admin")) {
         if (!isLoggedIn) {
           return Response.redirect(new URL("/connexion", nextUrl));
@@ -127,10 +128,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const user = session.user as {
           roles?: Array<{ role: string; eventId: string | null }>;
         };
-        const hasAdminAccess = user.roles?.some(
-          (r) => r.role === "ADMINISTRATEUR" || r.role === "DEVELOPPEUR",
+        const hasAnyAdminRole = user.roles?.some(
+          (r) =>
+            r.role === "ADMINISTRATEUR" ||
+            r.role === "DEVELOPPEUR" ||
+            r.role === "EDITEUR" ||
+            r.role === "COORDINATEUR",
         );
-        if (!hasAdminAccess) {
+        if (!hasAnyAdminRole) {
           return Response.redirect(new URL("/espace-membre", nextUrl));
         }
         return true;
