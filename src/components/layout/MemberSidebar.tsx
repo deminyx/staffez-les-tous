@@ -14,6 +14,8 @@ import {
   X,
   ChevronRight,
   Shield,
+  ShoppingBag,
+  Heart,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
@@ -39,6 +41,16 @@ const NAV_ITEMS = [
     label: "Mon profil",
     href: "/espace-membre/profil",
     icon: User,
+  },
+  {
+    label: "Boutique",
+    href: "/espace-membre/boutique",
+    icon: ShoppingBag,
+  },
+  {
+    label: "Vie associative",
+    href: "/espace-membre/vie-associative",
+    icon: Heart,
   },
 ];
 

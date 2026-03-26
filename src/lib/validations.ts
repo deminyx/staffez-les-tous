@@ -177,3 +177,95 @@ export const updateInscriptionStatusSchema = z.object({
 });
 
 export type UpdateInscriptionStatusInput = z.infer<typeof updateInscriptionStatusSchema>;
+
+// ─── Boutique : Articles ──────────────────────────────────
+
+export const productFormSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Le titre est requis")
+    .max(200, "Le titre ne peut pas depasser 200 caracteres"),
+  slug: z
+    .string()
+    .min(1, "Le slug est requis")
+    .max(200, "Le slug ne peut pas depasser 200 caracteres")
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Le slug doit etre en format kebab-case"),
+  description: z
+    .string()
+    .min(1, "La description est requise")
+    .max(5000, "La description ne peut pas depasser 5000 caracteres"),
+  image: z
+    .string()
+    .max(500, "L'URL de l'image ne peut pas depasser 500 caracteres")
+    .optional()
+    .or(z.literal("")),
+  priceMember: z.number().int().min(0, "Le prix adherent doit etre positif"),
+  pricePublic: z.number().int().min(0, "Le prix public doit etre positif").nullable().optional(),
+  isAvailable: z.boolean().optional(),
+  variants: z.array(
+    z.object({
+      id: z.string().optional(),
+      label: z.string().min(1, "Le label de la variante est requis").max(100),
+      stock: z.number().int().min(0, "Le stock doit etre positif ou nul"),
+    }),
+  ),
+});
+
+export type ProductFormInput = z.infer<typeof productFormSchema>;
+
+export const placeOrderSchema = z.object({
+  items: z
+    .array(
+      z.object({
+        variantId: z.string().min(1),
+        quantity: z.number().int().min(1, "La quantite doit etre d'au moins 1"),
+      }),
+    )
+    .min(1, "Le panier ne peut pas etre vide"),
+});
+
+export type PlaceOrderInput = z.infer<typeof placeOrderSchema>;
+
+export const updateOrderStatusSchema = z.object({
+  orderId: z.string().min(1, "L'identifiant de la commande est requis"),
+  status: z.enum(["EN_ATTENTE", "PAYEE", "LIVREE", "ANNULEE"]),
+});
+
+export type UpdateOrderStatusInput = z.infer<typeof updateOrderStatusSchema>;
+
+// ─── Vie associative : Sondages ───────────────────────────
+
+export const createPollSchema = z.object({
+  question: z
+    .string()
+    .min(1, "La question est requise")
+    .max(500, "La question ne peut pas depasser 500 caracteres"),
+  options: z
+    .array(z.string().min(1, "L'option ne peut pas etre vide").max(200))
+    .min(2, "Il faut au moins 2 options")
+    .max(6, "Maximum 6 options"),
+  closesAt: z.string().min(1, "La date de cloture est requise"),
+});
+
+export type CreatePollInput = z.infer<typeof createPollSchema>;
+
+export const votePollSchema = z.object({
+  optionId: z.string().min(1, "L'option est requise"),
+});
+
+export type VotePollInput = z.infer<typeof votePollSchema>;
+
+// ─── Vie associative : Boite a idees ─────────────────────
+
+export const submitIdeaSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Le titre est requis")
+    .max(100, "Le titre ne peut pas depasser 100 caracteres"),
+  description: z
+    .string()
+    .min(1, "La description est requise")
+    .max(500, "La description ne peut pas depasser 500 caracteres"),
+});
+
+export type SubmitIdeaInput = z.infer<typeof submitIdeaSchema>;

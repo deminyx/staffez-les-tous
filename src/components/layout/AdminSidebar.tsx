@@ -13,6 +13,8 @@ import {
   X,
   ChevronRight,
   Shield,
+  ShoppingBag,
+  Heart,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -37,6 +39,16 @@ const NAV_ITEMS = [
     label: "Publications",
     href: "/admin/publications",
     icon: FileText,
+  },
+  {
+    label: "Boutique",
+    href: "/admin/boutique",
+    icon: ShoppingBag,
+  },
+  {
+    label: "Vie associative",
+    href: "/admin/vie-associative",
+    icon: Heart,
   },
 ];
 

@@ -38,3 +38,19 @@ export const PUBLICATION_STATUS_LABELS = {
   APPROUVEE: "Publiee",
   REJETEE: "Rejetee",
 } as const;
+
+/** Statuts de commande avec labels francais */
+export const ORDER_STATUS_LABELS = {
+  EN_ATTENTE: "En attente",
+  PAYEE: "Payee",
+  LIVREE: "Livree",
+  ANNULEE: "Annulee",
+} as const;
+
+/** Couleurs des statuts de commande */
+export const ORDER_STATUS_COLORS = {
+  EN_ATTENTE: "bg-yellow-500/20 text-yellow-400",
+  PAYEE: "bg-green-500/20 text-green-400",
+  LIVREE: "bg-blue-500/20 text-blue-400",
+  ANNULEE: "bg-red-500/20 text-red-400",
+} as const;

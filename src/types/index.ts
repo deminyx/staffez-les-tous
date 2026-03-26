@@ -78,6 +78,94 @@ export interface UserProfile {
   roles: UserRole[];
 }
 
+// ─── Boutique ────────────────────────────────────────────
+
+export type OrderStatus = "EN_ATTENTE" | "PAYEE" | "LIVREE" | "ANNULEE";
+
+export interface ProductVariant {
+  id: string;
+  label: string;
+  stock: number;
+}
+
+export interface ProductSummary {
+  id: string;
+  title: string;
+  slug: string;
+  image: string | null;
+  priceMember: number;
+  pricePublic: number | null;
+  isAvailable: boolean;
+  variants: ProductVariant[];
+}
+
+export interface ProductDetail extends ProductSummary {
+  description: string;
+}
+
+export interface CartItem {
+  variantId: string;
+  productTitle: string;
+  variantLabel: string;
+  quantity: number;
+  unitPrice: number;
+  image: string | null;
+  stock: number;
+}
+
+export interface OrderSummary {
+  id: string;
+  orderNumber: string;
+  status: OrderStatus;
+  totalCents: number;
+  createdAt: string;
+  userName: string;
+  itemCount: number;
+}
+
+// ─── Vie associative ────────────────────────────────────
+
+export interface SortieSummary {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  startDate: string | null;
+  endDate: string | null;
+  location: string | null;
+  maxVolunteers: number | null;
+  inscriptionCount: number;
+  isInscrit: boolean;
+}
+
+export interface PollSummary {
+  id: string;
+  question: string;
+  closesAt: string;
+  isClosed: boolean;
+  hasVoted: boolean;
+  totalVotes: number;
+  options: PollOptionSummary[];
+}
+
+export interface PollOptionSummary {
+  id: string;
+  label: string;
+  voteCount: number;
+  isSelected: boolean;
+}
+
+export interface IdeaSummary {
+  id: string;
+  title: string;
+  description: string;
+  authorName: string;
+  likeCount: number;
+  isLiked: boolean;
+  isApproved: boolean;
+  createdAt: string;
+}
+
 // ─── Formulaires de contact ──────────────────────────────
 
 export type ContactType = "RECRUTEMENT" | "ORGANISATEUR";
