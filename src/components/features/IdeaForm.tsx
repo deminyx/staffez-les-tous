@@ -33,7 +33,7 @@ export const IdeaForm = () => {
   return (
     <div>
       {success && (
-        <div className="mb-4 rounded-lg bg-green-500/10 p-3 text-sm text-green-400">
+        <div className="mb-4 rounded-lg bg-green-50 p-3 text-sm text-green-600">
           Idee soumise avec succes ! Elle sera visible apres validation par un administrateur.
         </div>
       )}
@@ -47,17 +47,14 @@ export const IdeaForm = () => {
           Proposer une idee
         </button>
       ) : (
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-xl border border-white/10 bg-surface-dark p-6"
-        >
-          <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-white">
+        <form onSubmit={handleSubmit} className="card p-6">
+          <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-brand-black">
             Proposer une idee
           </h3>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="idea-title" className="mb-1 block text-sm text-gray-300">
+              <label htmlFor="idea-title" className="mb-1 block text-sm text-gray-600">
                 Titre (max 100 caracteres)
               </label>
               <input
@@ -66,13 +63,13 @@ export const IdeaForm = () => {
                 type="text"
                 maxLength={100}
                 required
-                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white placeholder:text-gray-600 focus:border-brand-red focus:outline-none"
+                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black placeholder:text-gray-400 focus:border-brand-red focus:outline-none"
                 placeholder="Votre idee en quelques mots..."
               />
             </div>
 
             <div>
-              <label htmlFor="idea-desc" className="mb-1 block text-sm text-gray-300">
+              <label htmlFor="idea-desc" className="mb-1 block text-sm text-gray-600">
                 Description (max 500 caracteres)
               </label>
               <textarea
@@ -81,13 +78,13 @@ export const IdeaForm = () => {
                 maxLength={500}
                 rows={3}
                 required
-                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white placeholder:text-gray-600 focus:border-brand-red focus:outline-none"
+                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black placeholder:text-gray-400 focus:border-brand-red focus:outline-none"
                 placeholder="Decrivez votre idee plus en detail..."
               />
             </div>
           </div>
 
-          {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
+          {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
 
           <div className="mt-4 flex gap-3">
             <button
@@ -100,7 +97,7 @@ export const IdeaForm = () => {
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="rounded-lg bg-white/5 px-4 py-2 text-sm text-gray-400 transition-colors hover:bg-white/10"
+              className="rounded-lg bg-gray-50 px-4 py-2 text-sm text-gray-500 transition-colors hover:bg-gray-100"
             >
               Annuler
             </button>

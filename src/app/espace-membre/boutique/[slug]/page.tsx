@@ -47,17 +47,17 @@ export default async function ProductDetailPage({ params }: PageProps) {
   return (
     <div>
       {/* Breadcrumb */}
-      <nav className="mb-6 text-sm text-gray-400">
-        <a href="/espace-membre/boutique" className="hover:text-white">
+      <nav className="mb-6 text-sm text-gray-500">
+        <a href="/espace-membre/boutique" className="hover:text-brand-red">
           Boutique
         </a>
         <span className="mx-2">/</span>
-        <span className="text-white">{product.title}</span>
+        <span className="text-brand-black">{product.title}</span>
       </nav>
 
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Image */}
-        <div className="aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/5">
+        <div className="aspect-square overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
           {product.image ? (
             <div
               className="h-full w-full bg-cover bg-center"
@@ -65,14 +65,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
             />
           ) : (
             <div className="flex h-full items-center justify-center">
-              <span className="font-display text-6xl text-white/20">S</span>
+              <span className="font-display text-6xl text-gray-200">S</span>
             </div>
           )}
         </div>
 
         {/* Details */}
         <div>
-          <h1 className="font-display text-2xl font-black uppercase tracking-wider text-white">
+          <h1 className="font-display text-2xl font-black uppercase tracking-wider text-brand-black">
             {product.title}
           </h1>
 
@@ -81,7 +81,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
               {(product.priceMember / 100).toFixed(2)} &euro;
             </span>
             {product.pricePublic && (
-              <span className="text-lg text-gray-500 line-through">
+              <span className="text-lg text-gray-400 line-through">
                 {(product.pricePublic / 100).toFixed(2)} &euro;
               </span>
             )}
@@ -90,10 +90,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
             </span>
           </div>
 
-          <p className="mt-6 leading-relaxed text-gray-300">{product.description}</p>
+          <p className="mt-6 leading-relaxed text-gray-600">{product.description}</p>
 
           <div className="mt-6">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-500">
               {totalStock > 0
                 ? `${totalStock} article${totalStock > 1 ? "s" : ""} en stock`
                 : "Rupture de stock"}

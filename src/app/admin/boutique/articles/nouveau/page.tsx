@@ -18,7 +18,7 @@ export default async function NouvelArticlePage() {
 
   return (
     <div>
-      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-white">
+      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-brand-black">
         Nouvel article
       </h1>
       <ProductForm />

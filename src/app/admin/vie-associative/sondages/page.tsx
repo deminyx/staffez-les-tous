@@ -30,7 +30,7 @@ export default async function AdminSondagesPage() {
 
   return (
     <div>
-      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-white">
+      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-brand-black">
         Gestion des sondages
       </h1>
 
@@ -44,10 +44,10 @@ export default async function AdminSondagesPage() {
           const totalVotes = poll.options.reduce((sum, o) => sum + o._count.votes, 0);
 
           return (
-            <div key={poll.id} className="rounded-xl border border-white/10 bg-surface-dark p-6">
+            <div key={poll.id} className="card p-6">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white">
+                  <h3 className="font-display text-sm font-bold uppercase tracking-wider text-brand-black">
                     {poll.question}
                   </h3>
                   <p className="mt-1 text-xs text-gray-500">
@@ -59,8 +59,8 @@ export default async function AdminSondagesPage() {
                 <span
                   className={
                     isClosed
-                      ? "rounded-full bg-gray-500/20 px-2 py-1 text-xs text-gray-400"
-                      : "rounded-full bg-green-500/20 px-2 py-1 text-xs text-green-400"
+                      ? "rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-500"
+                      : "rounded-full bg-green-50 px-2 py-1 text-xs text-green-600"
                   }
                 >
                   {isClosed ? "Termine" : "Actif"}
@@ -74,10 +74,10 @@ export default async function AdminSondagesPage() {
                   return (
                     <div
                       key={option.id}
-                      className="relative overflow-hidden rounded-lg border border-white/5 p-2 text-sm"
+                      className="relative overflow-hidden rounded-lg border border-gray-100 p-2 text-sm"
                     >
-                      <div className="absolute inset-0 bg-white/5" style={{ width: `${pct}%` }} />
-                      <span className="relative flex justify-between text-gray-300">
+                      <div className="absolute inset-0 bg-gray-50" style={{ width: `${pct}%` }} />
+                      <span className="relative flex justify-between text-gray-600">
                         <span>{option.label}</span>
                         <span className="text-xs text-gray-500">
                           {option._count.votes} ({pct}%)

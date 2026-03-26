@@ -51,15 +51,15 @@ export const PollCard = ({ poll }: PollCardProps) => {
     d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
 
   return (
-    <div className="rounded-xl border border-white/10 bg-surface-dark p-6">
+    <div className="card p-6">
       <div className="flex items-start justify-between">
-        <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white">
+        <h3 className="font-display text-sm font-bold uppercase tracking-wider text-brand-black">
           {poll.question}
         </h3>
         <span
           className={cn(
             "flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-xs font-medium",
-            poll.isClosed ? "bg-gray-500/20 text-gray-400" : "bg-green-500/20 text-green-400",
+            poll.isClosed ? "bg-gray-100 text-gray-500" : "bg-green-50 text-green-600",
           )}
         >
           <Clock className="h-3 w-3" aria-hidden="true" />
@@ -79,15 +79,15 @@ export const PollCard = ({ poll }: PollCardProps) => {
               className={cn(
                 "relative w-full overflow-hidden rounded-lg border p-3 text-left text-sm transition-all",
                 option.isSelected
-                  ? "border-brand-red bg-brand-red/10 text-white"
+                  ? "border-brand-red bg-brand-red/10 text-brand-black"
                   : showResults
-                    ? "border-white/5 text-gray-300"
-                    : "border-white/10 text-gray-300 hover:border-white/30 hover:text-white",
+                    ? "border-gray-100 text-gray-600"
+                    : "border-gray-200 text-gray-600 hover:border-gray-300 hover:text-brand-black",
                 (hasVoted || poll.isClosed) && "cursor-default",
               )}
             >
               {showResults && (
-                <div className="absolute inset-0 bg-white/5" style={{ width: `${pct}%` }} />
+                <div className="absolute inset-0 bg-gray-50" style={{ width: `${pct}%` }} />
               )}
               <span className="relative flex items-center justify-between">
                 <span>{option.label}</span>
@@ -102,7 +102,7 @@ export const PollCard = ({ poll }: PollCardProps) => {
         })}
       </div>
 
-      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
 
       <p className="mt-3 text-xs text-gray-500">
         {totalVotes} vote{totalVotes > 1 ? "s" : ""}

@@ -43,7 +43,7 @@ export default async function VieAssociativePage() {
 
   return (
     <div>
-      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-white">
+      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-brand-black">
         Vie associative
       </h1>
 
@@ -51,15 +51,15 @@ export default async function VieAssociativePage() {
         {/* Sorties */}
         <Link
           href="/espace-membre/vie-associative/sorties"
-          className="group rounded-xl border border-white/10 bg-surface-dark p-6 transition-all hover:border-brand-red/40"
+          className="card group p-6 transition-all hover:border-brand-red/40"
         >
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-red/20">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-red/10">
             <Calendar className="h-6 w-6 text-brand-red" />
           </div>
-          <h2 className="font-display text-sm font-bold uppercase tracking-wider text-white group-hover:text-brand-red-vivid">
+          <h2 className="font-display text-sm font-bold uppercase tracking-wider text-brand-black group-hover:text-brand-red-vivid">
             Sorties
           </h2>
-          <p className="mt-2 text-sm text-gray-400">
+          <p className="mt-2 text-sm text-gray-500">
             {nextSorties.length > 0
               ? `${nextSorties.length} sortie${nextSorties.length > 1 ? "s" : ""} a venir`
               : "Aucune sortie prevue"}
@@ -76,15 +76,15 @@ export default async function VieAssociativePage() {
         {/* Sondages */}
         <Link
           href="/espace-membre/vie-associative/sondages"
-          className="group rounded-xl border border-white/10 bg-surface-dark p-6 transition-all hover:border-brand-red/40"
+          className="card group p-6 transition-all hover:border-brand-red/40"
         >
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500/20">
-            <BarChart3 className="h-6 w-6 text-blue-400" />
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50">
+            <BarChart3 className="h-6 w-6 text-blue-500" />
           </div>
-          <h2 className="font-display text-sm font-bold uppercase tracking-wider text-white group-hover:text-brand-red-vivid">
+          <h2 className="font-display text-sm font-bold uppercase tracking-wider text-brand-black group-hover:text-brand-red-vivid">
             Sondages
           </h2>
-          <p className="mt-2 text-sm text-gray-400">
+          <p className="mt-2 text-sm text-gray-500">
             {activePolls.length > 0
               ? `${activePolls.length} sondage${activePolls.length > 1 ? "s" : ""} en cours`
               : "Aucun sondage actif"}
@@ -97,15 +97,15 @@ export default async function VieAssociativePage() {
         {/* Boite a idees */}
         <Link
           href="/espace-membre/vie-associative/idees"
-          className="group rounded-xl border border-white/10 bg-surface-dark p-6 transition-all hover:border-brand-red/40"
+          className="card group p-6 transition-all hover:border-brand-red/40"
         >
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-yellow-500/20">
-            <Lightbulb className="h-6 w-6 text-yellow-400" />
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-yellow-50">
+            <Lightbulb className="h-6 w-6 text-yellow-500" />
           </div>
-          <h2 className="font-display text-sm font-bold uppercase tracking-wider text-white group-hover:text-brand-red-vivid">
+          <h2 className="font-display text-sm font-bold uppercase tracking-wider text-brand-black group-hover:text-brand-red-vivid">
             Boite a idees
           </h2>
-          <p className="mt-2 text-sm text-gray-400">
+          <p className="mt-2 text-sm text-gray-500">
             {recentIdeas.length > 0
               ? `${recentIdeas.length} idee${recentIdeas.length > 1 ? "s" : ""} recentes`
               : "Aucune idee pour le moment"}

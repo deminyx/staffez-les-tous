@@ -35,24 +35,24 @@ export default async function AdminCommandesPage() {
 
   return (
     <div>
-      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-white">
+      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-brand-black">
         Gestion des commandes
       </h1>
 
       {orders.length === 0 ? (
-        <div className="rounded-xl border border-white/10 bg-surface-dark p-12 text-center">
-          <p className="text-gray-400">Aucune commande pour le moment.</p>
+        <div className="card p-12 text-center">
+          <p className="text-gray-500">Aucune commande pour le moment.</p>
         </div>
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
-            <div key={order.id} className="rounded-xl border border-white/10 bg-surface-dark p-6">
+            <div key={order.id} className="card p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <p className="font-display text-sm font-bold uppercase tracking-wider text-white">
+                  <p className="font-display text-sm font-bold uppercase tracking-wider text-brand-black">
                     {order.orderNumber}
                   </p>
-                  <p className="mt-1 text-xs text-gray-400">
+                  <p className="mt-1 text-xs text-gray-500">
                     {order.user.firstName} {order.user.lastName} ({order.user.email})
                   </p>
                   <p className="text-xs text-gray-500">
@@ -79,8 +79,8 @@ export default async function AdminCommandesPage() {
               </div>
 
               {/* Items */}
-              <div className="mt-4 border-t border-white/5 pt-4">
-                <ul className="space-y-1 text-sm text-gray-300">
+              <div className="mt-4 border-t border-gray-100 pt-4">
+                <ul className="space-y-1 text-sm text-gray-600">
                   {order.items.map((item) => (
                     <li key={item.id} className="flex justify-between">
                       <span>

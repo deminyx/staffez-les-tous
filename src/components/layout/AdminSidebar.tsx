@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 import {
   LayoutDashboard,
   Users,
@@ -15,6 +16,7 @@ import {
   Shield,
   ShoppingBag,
   Heart,
+  LogOut,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -59,6 +61,10 @@ export const AdminSidebar = () => {
   const isActive = (href: string) => {
     if (href === "/admin") return pathname === href;
     return pathname.startsWith(href);
+  };
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/" });
   };
 
   return (
@@ -135,7 +141,7 @@ export const AdminSidebar = () => {
           </ul>
         </nav>
 
-        {/* Footer — Back to member area */}
+        {/* Footer — Back to member area + Logout */}
         <div className="border-t border-white/10 p-3">
           <Link
             href="/espace-membre"
@@ -144,6 +150,13 @@ export const AdminSidebar = () => {
             <ArrowLeft className="h-5 w-5 text-gray-500" aria-hidden="true" />
             Espace membre
           </Link>
+          <button
+            onClick={handleSignOut}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-400 transition-all hover:bg-white/5 hover:text-white"
+          >
+            <LogOut className="h-5 w-5 text-gray-500" aria-hidden="true" />
+            Deconnexion
+          </button>
         </div>
       </aside>
     </>

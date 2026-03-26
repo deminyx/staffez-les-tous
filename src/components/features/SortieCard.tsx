@@ -69,12 +69,12 @@ export const SortieCard = ({
   const isFull = maxVolunteers !== null && count >= maxVolunteers;
 
   return (
-    <div className="rounded-xl border border-white/10 bg-surface-dark p-6">
-      <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white">
+    <div className="card p-6">
+      <h3 className="font-display text-sm font-bold uppercase tracking-wider text-brand-black">
         {title}
       </h3>
 
-      <div className="mt-3 flex flex-wrap gap-4 text-xs text-gray-400">
+      <div className="mt-3 flex flex-wrap gap-4 text-xs text-gray-500">
         {startDate && (
           <span className="flex items-center gap-1">
             <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
@@ -95,9 +95,9 @@ export const SortieCard = ({
         </span>
       </div>
 
-      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-300">{description}</p>
+      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-600">{description}</p>
 
-      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
 
       {inscriptionOpen && (
         <button
@@ -106,9 +106,9 @@ export const SortieCard = ({
           className={cn(
             "mt-4 rounded-lg px-4 py-2 text-sm font-bold transition-all",
             isInscrit
-              ? "bg-white/10 text-gray-300 hover:bg-red-500/20 hover:text-red-400"
+              ? "bg-gray-100 text-gray-600 hover:bg-red-50 hover:text-red-500"
               : isFull
-                ? "cursor-not-allowed bg-white/5 text-gray-600"
+                ? "cursor-not-allowed bg-gray-50 text-gray-400"
                 : "bg-brand-red text-white hover:bg-brand-red-vivid",
             isLoading && "opacity-50",
           )}

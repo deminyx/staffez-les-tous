@@ -44,7 +44,7 @@ export const IdeaCard = ({ idea }: IdeaCardProps) => {
   };
 
   return (
-    <div className="flex items-start gap-4 rounded-xl border border-white/10 bg-surface-dark p-6">
+    <div className="card flex items-start gap-4 p-6">
       {/* Vote button */}
       <button
         onClick={handleLike}
@@ -52,8 +52,8 @@ export const IdeaCard = ({ idea }: IdeaCardProps) => {
         className={cn(
           "flex shrink-0 flex-col items-center gap-1 rounded-lg p-2 transition-all",
           isLiked
-            ? "bg-brand-red/20 text-brand-red"
-            : "bg-white/5 text-gray-500 hover:bg-white/10 hover:text-white",
+            ? "bg-brand-red/10 text-brand-red"
+            : "bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-brand-black",
           isLoading && "opacity-50",
         )}
         aria-label={isLiked ? "Retirer le vote" : "Voter pour cette idee"}
@@ -64,10 +64,10 @@ export const IdeaCard = ({ idea }: IdeaCardProps) => {
 
       {/* Content */}
       <div className="flex-1">
-        <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white">
+        <h3 className="font-display text-sm font-bold uppercase tracking-wider text-brand-black">
           {idea.title}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-gray-300">{idea.description}</p>
+        <p className="mt-2 text-sm leading-relaxed text-gray-600">{idea.description}</p>
         <p className="mt-2 text-xs text-gray-500">
           Par {idea.authorName} —{" "}
           {new Date(idea.createdAt).toLocaleDateString("fr-FR", {

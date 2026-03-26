@@ -34,19 +34,19 @@ export default async function SortiesPage() {
 
   return (
     <div>
-      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-white">
+      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-brand-black">
         Sorties
       </h1>
 
       {upcomingSorties.length === 0 && pastSorties.length === 0 ? (
-        <div className="rounded-xl border border-white/10 bg-surface-dark p-12 text-center">
-          <p className="text-gray-400">Aucune sortie prevue pour le moment.</p>
+        <div className="card p-12 text-center">
+          <p className="text-gray-500">Aucune sortie prevue pour le moment.</p>
         </div>
       ) : (
         <>
           {upcomingSorties.length > 0 && (
             <section className="mb-10">
-              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-gray-400">
+              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-gray-500">
                 A venir
               </h2>
               <div className="grid gap-4 md:grid-cols-2">
@@ -71,16 +71,16 @@ export default async function SortiesPage() {
 
           {pastSorties.length > 0 && (
             <section>
-              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-gray-400">
+              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-gray-500">
                 Passees
               </h2>
               <div className="grid gap-4 md:grid-cols-2">
                 {pastSorties.map((sortie) => (
                   <div
                     key={sortie.id}
-                    className="rounded-xl border border-white/5 bg-surface-dark/50 p-6 opacity-60"
+                    className="rounded-xl border border-gray-100 bg-gray-50 p-6 opacity-60"
                   >
-                    <h3 className="font-display text-sm font-bold uppercase text-white">
+                    <h3 className="font-display text-sm font-bold uppercase text-brand-black">
                       {sortie.title}
                     </h3>
                     {sortie.startDate && (

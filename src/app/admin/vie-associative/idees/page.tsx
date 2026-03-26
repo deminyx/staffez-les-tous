@@ -30,19 +30,19 @@ export default async function AdminIdeesPage() {
 
   return (
     <div>
-      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-white">
+      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-brand-black">
         Moderation des idees
       </h1>
 
       {ideas.length === 0 ? (
-        <div className="rounded-xl border border-white/10 bg-surface-dark p-12 text-center">
-          <p className="text-gray-400">Aucune idee soumise.</p>
+        <div className="card p-12 text-center">
+          <p className="text-gray-500">Aucune idee soumise.</p>
         </div>
       ) : (
         <>
           {pendingIdeas.length > 0 && (
             <section className="mb-10">
-              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-yellow-400">
+              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-yellow-600">
                 En attente de moderation ({pendingIdeas.length})
               </h2>
               <div className="space-y-3">
@@ -64,7 +64,7 @@ export default async function AdminIdeesPage() {
 
           {approvedIdeas.length > 0 && (
             <section>
-              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-green-400">
+              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-green-600">
                 Approuvees ({approvedIdeas.length})
               </h2>
               <div className="space-y-3">

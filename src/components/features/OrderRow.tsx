@@ -49,7 +49,7 @@ export const OrderRow = ({ orderId, currentStatus }: OrderRowProps) => {
   if (possibleTransitions.length === 0) return null;
 
   return (
-    <div className="mt-4 border-t border-white/5 pt-4">
+    <div className="mt-4 border-t border-gray-100 pt-4">
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs text-gray-500">Changer le statut :</span>
         {possibleTransitions.map((s) => (
@@ -60,8 +60,8 @@ export const OrderRow = ({ orderId, currentStatus }: OrderRowProps) => {
             className={cn(
               "rounded-lg px-3 py-1.5 text-xs font-bold transition-all",
               s === "ANNULEE"
-                ? "bg-red-500/10 text-red-400 hover:bg-red-500/20"
-                : "bg-white/5 text-gray-300 hover:bg-white/10",
+                ? "bg-red-50 text-red-500 hover:bg-red-100"
+                : "bg-gray-50 text-gray-600 hover:bg-gray-100",
               isLoading && "opacity-50",
             )}
           >
@@ -69,7 +69,7 @@ export const OrderRow = ({ orderId, currentStatus }: OrderRowProps) => {
           </button>
         ))}
       </div>
-      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
     </div>
   );
 };

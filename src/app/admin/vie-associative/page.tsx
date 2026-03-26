@@ -26,17 +26,17 @@ export default async function AdminVieAssociativePage() {
 
   return (
     <div>
-      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-white">
+      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-brand-black">
         Vie associative
       </h1>
 
       <div className="grid gap-6 md:grid-cols-3">
         <Link
           href="/admin/evenements"
-          className="group rounded-xl border border-white/10 bg-surface-dark p-6 transition-all hover:border-brand-red/40"
+          className="card group p-6 transition-all hover:border-brand-red/40"
         >
           <p className="text-3xl font-bold text-brand-red">{sortiesCount}</p>
-          <p className="mt-1 text-sm text-gray-400 group-hover:text-white">
+          <p className="mt-1 text-sm text-gray-500 group-hover:text-brand-black">
             Sorties (via Evenements)
           </p>
           <p className="mt-2 text-xs text-gray-500">
@@ -46,20 +46,20 @@ export default async function AdminVieAssociativePage() {
 
         <Link
           href="/admin/vie-associative/sondages"
-          className="group rounded-xl border border-white/10 bg-surface-dark p-6 transition-all hover:border-brand-red/40"
+          className="card group p-6 transition-all hover:border-brand-red/40"
         >
-          <p className="text-3xl font-bold text-blue-400">{pollsCount}</p>
-          <p className="mt-1 text-sm text-gray-400 group-hover:text-white">Sondages</p>
+          <p className="text-3xl font-bold text-blue-500">{pollsCount}</p>
+          <p className="mt-1 text-sm text-gray-500 group-hover:text-brand-black">Sondages</p>
         </Link>
 
         <Link
           href="/admin/vie-associative/idees"
-          className="group rounded-xl border border-white/10 bg-surface-dark p-6 transition-all hover:border-brand-red/40"
+          className="card group p-6 transition-all hover:border-brand-red/40"
         >
-          <p className="text-3xl font-bold text-yellow-400">{ideasCount}</p>
-          <p className="mt-1 text-sm text-gray-400 group-hover:text-white">Idees</p>
+          <p className="text-3xl font-bold text-yellow-500">{ideasCount}</p>
+          <p className="mt-1 text-sm text-gray-500 group-hover:text-brand-black">Idees</p>
           {pendingIdeas > 0 && (
-            <p className="mt-2 text-xs text-yellow-400">{pendingIdeas} en attente de moderation</p>
+            <p className="mt-2 text-xs text-yellow-600">{pendingIdeas} en attente de moderation</p>
           )}
         </Link>
       </div>

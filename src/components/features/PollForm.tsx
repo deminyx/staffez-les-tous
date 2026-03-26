@@ -37,7 +37,7 @@ export const PollForm = () => {
   return (
     <div>
       {success && (
-        <div className="mb-4 rounded-lg bg-green-500/10 p-3 text-sm text-green-400">
+        <div className="mb-4 rounded-lg bg-green-50 p-3 text-sm text-green-600">
           Sondage cree avec succes !
         </div>
       )}
@@ -50,17 +50,14 @@ export const PollForm = () => {
           + Nouveau sondage
         </button>
       ) : (
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-xl border border-white/10 bg-surface-dark p-6"
-        >
-          <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-white">
+        <form onSubmit={handleSubmit} className="card p-6">
+          <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-brand-black">
             Nouveau sondage
           </h3>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="poll-question" className="mb-1 block text-sm text-gray-300">
+              <label htmlFor="poll-question" className="mb-1 block text-sm text-gray-600">
                 Question
               </label>
               <input
@@ -69,13 +66,13 @@ export const PollForm = () => {
                 type="text"
                 required
                 maxLength={500}
-                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white focus:border-brand-red focus:outline-none"
+                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black focus:border-brand-red focus:outline-none"
                 placeholder="Quelle question souhaitez-vous poser ?"
               />
             </div>
 
             <div>
-              <label className="mb-2 block text-sm text-gray-300">Options (2 a 6)</label>
+              <label className="mb-2 block text-sm text-gray-600">Options (2 a 6)</label>
               <div className="space-y-2">
                 {options.map((option, index) => (
                   <div key={index} className="flex items-center gap-2">
@@ -89,13 +86,13 @@ export const PollForm = () => {
                       }}
                       placeholder={`Option ${index + 1}`}
                       maxLength={200}
-                      className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:border-brand-red focus:outline-none"
+                      className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-brand-black focus:border-brand-red focus:outline-none"
                     />
                     {options.length > 2 && (
                       <button
                         type="button"
                         onClick={() => setOptions(options.filter((_, i) => i !== index))}
-                        className="text-gray-500 hover:text-red-400"
+                        className="text-gray-400 hover:text-red-500"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -115,7 +112,7 @@ export const PollForm = () => {
             </div>
 
             <div>
-              <label htmlFor="poll-closes" className="mb-1 block text-sm text-gray-300">
+              <label htmlFor="poll-closes" className="mb-1 block text-sm text-gray-600">
                 Date de cloture
               </label>
               <input
@@ -123,12 +120,12 @@ export const PollForm = () => {
                 name="closesAt"
                 type="datetime-local"
                 required
-                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white focus:border-brand-red focus:outline-none"
+                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black focus:border-brand-red focus:outline-none"
               />
             </div>
           </div>
 
-          {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
+          {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
 
           <div className="mt-4 flex gap-3">
             <button
@@ -141,7 +138,7 @@ export const PollForm = () => {
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="rounded-lg bg-white/5 px-4 py-2 text-sm text-gray-400 transition-colors hover:bg-white/10"
+              className="rounded-lg bg-gray-50 px-4 py-2 text-sm text-gray-500 transition-colors hover:bg-gray-100"
             >
               Annuler
             </button>

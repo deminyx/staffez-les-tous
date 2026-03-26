@@ -50,18 +50,18 @@ export const IdeaModerationRow = ({
   return (
     <div
       className={cn(
-        "flex items-start justify-between gap-4 rounded-xl border bg-surface-dark p-4",
-        isApproved ? "border-green-500/20" : "border-yellow-500/20",
+        "flex items-start justify-between gap-4 rounded-xl border bg-white p-4",
+        isApproved ? "border-green-200" : "border-yellow-200",
       )}
     >
       <div className="flex-1">
-        <h4 className="text-sm font-bold text-white">{title}</h4>
-        <p className="mt-1 text-sm text-gray-400">{description}</p>
+        <h4 className="text-sm font-bold text-brand-black">{title}</h4>
+        <p className="mt-1 text-sm text-gray-500">{description}</p>
         <p className="mt-2 text-xs text-gray-500">
           Par {authorName} — {new Date(createdAt).toLocaleDateString("fr-FR")} — {likeCount} vote
           {likeCount > 1 ? "s" : ""}
         </p>
-        {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
+        {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
       </div>
 
       <button
@@ -70,8 +70,8 @@ export const IdeaModerationRow = ({
         className={cn(
           "flex shrink-0 items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-bold transition-all",
           isApproved
-            ? "bg-red-500/10 text-red-400 hover:bg-red-500/20"
-            : "bg-green-500/10 text-green-400 hover:bg-green-500/20",
+            ? "bg-red-50 text-red-500 hover:bg-red-100"
+            : "bg-green-50 text-green-600 hover:bg-green-100",
           isLoading && "opacity-50",
         )}
       >

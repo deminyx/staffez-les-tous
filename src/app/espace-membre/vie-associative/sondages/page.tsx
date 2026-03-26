@@ -53,19 +53,19 @@ export default async function SondagesPage() {
 
   return (
     <div>
-      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-white">
+      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-brand-black">
         Sondages
       </h1>
 
       {pollsWithMeta.length === 0 ? (
-        <div className="rounded-xl border border-white/10 bg-surface-dark p-12 text-center">
-          <p className="text-gray-400">Aucun sondage pour le moment.</p>
+        <div className="card p-12 text-center">
+          <p className="text-gray-500">Aucun sondage pour le moment.</p>
         </div>
       ) : (
         <>
           {activePolls.length > 0 && (
             <section className="mb-10">
-              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-gray-400">
+              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-gray-500">
                 En cours
               </h2>
               <div className="space-y-4">
@@ -78,7 +78,7 @@ export default async function SondagesPage() {
 
           {closedPolls.length > 0 && (
             <section>
-              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-gray-400">
+              <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-wider text-gray-500">
                 Clotures
               </h2>
               <div className="space-y-4">

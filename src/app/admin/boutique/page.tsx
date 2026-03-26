@@ -25,27 +25,29 @@ export default async function AdminBoutiquePage() {
 
   return (
     <div>
-      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-white">
+      <h1 className="mb-8 font-display text-2xl font-black uppercase tracking-wider text-brand-black">
         Gestion boutique
       </h1>
 
       <div className="grid gap-6 md:grid-cols-2">
         <Link
           href="/admin/boutique/articles"
-          className="group rounded-xl border border-white/10 bg-surface-dark p-6 transition-all hover:border-brand-red/40"
+          className="card group p-6 transition-all hover:border-brand-red/40"
         >
           <p className="text-3xl font-bold text-brand-red">{productsCount}</p>
-          <p className="mt-1 text-sm text-gray-400 group-hover:text-white">Articles au catalogue</p>
+          <p className="mt-1 text-sm text-gray-500 group-hover:text-brand-black">
+            Articles au catalogue
+          </p>
         </Link>
 
         <Link
           href="/admin/boutique/commandes"
-          className="group rounded-xl border border-white/10 bg-surface-dark p-6 transition-all hover:border-brand-red/40"
+          className="card group p-6 transition-all hover:border-brand-red/40"
         >
-          <p className="text-3xl font-bold text-blue-400">{ordersCount}</p>
-          <p className="mt-1 text-sm text-gray-400 group-hover:text-white">Commandes</p>
+          <p className="text-3xl font-bold text-blue-500">{ordersCount}</p>
+          <p className="mt-1 text-sm text-gray-500 group-hover:text-brand-black">Commandes</p>
           {pendingOrders > 0 && (
-            <p className="mt-2 text-xs text-yellow-400">{pendingOrders} en attente de paiement</p>
+            <p className="mt-2 text-xs text-yellow-600">{pendingOrders} en attente de paiement</p>
           )}
         </Link>
       </div>

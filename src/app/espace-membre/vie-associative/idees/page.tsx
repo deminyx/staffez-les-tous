@@ -37,7 +37,7 @@ export default async function IdeesPage() {
   return (
     <div>
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="font-display text-2xl font-black uppercase tracking-wider text-white">
+        <h1 className="font-display text-2xl font-black uppercase tracking-wider text-brand-black">
           Boite a idees
         </h1>
       </div>
@@ -47,8 +47,8 @@ export default async function IdeesPage() {
 
       {/* Ideas list */}
       {ideasWithMeta.length === 0 ? (
-        <div className="mt-6 rounded-xl border border-white/10 bg-surface-dark p-12 text-center">
-          <p className="text-gray-400">
+        <div className="card mt-6 p-12 text-center">
+          <p className="text-gray-500">
             Aucune idee pour le moment. Soyez le premier a en proposer !
           </p>
         </div>

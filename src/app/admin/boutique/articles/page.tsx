@@ -29,10 +29,10 @@ export default async function AdminArticlesPage() {
     <div>
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="font-display text-2xl font-black uppercase tracking-wider text-white">
+          <h1 className="font-display text-2xl font-black uppercase tracking-wider text-brand-black">
             Gestion des articles
           </h1>
-          <p className="mt-1 text-sm text-gray-400">
+          <p className="mt-1 text-sm text-gray-500">
             {products.length} article{products.length > 1 ? "s" : ""} au catalogue
           </p>
         </div>
@@ -45,14 +45,14 @@ export default async function AdminArticlesPage() {
       </div>
 
       {products.length === 0 ? (
-        <div className="rounded-xl border border-white/10 bg-surface-dark p-12 text-center">
-          <p className="text-gray-400">Aucun article dans le catalogue.</p>
+        <div className="card p-12 text-center">
+          <p className="text-gray-500">Aucun article dans le catalogue.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-white/10 bg-surface-dark">
+        <div className="card overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/10 text-left text-xs uppercase tracking-wider text-gray-500">
+              <tr className="border-b border-gray-100 text-left text-xs uppercase tracking-wider text-gray-500">
                 <th className="px-4 py-3">Article</th>
                 <th className="px-4 py-3">Prix adherent</th>
                 <th className="px-4 py-3">Stock total</th>
@@ -61,14 +61,14 @@ export default async function AdminArticlesPage() {
                 <th className="px-4 py-3">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-gray-50">
               {products.map((product) => {
                 const totalStock = product.variants.reduce((s, v) => s + v.stock, 0);
                 return (
-                  <tr key={product.id} className="text-gray-300 hover:bg-white/5">
+                  <tr key={product.id} className="text-gray-600 hover:bg-gray-50">
                     <td className="px-4 py-3">
                       <div>
-                        <p className="font-medium text-white">{product.title}</p>
+                        <p className="font-medium text-brand-black">{product.title}</p>
                         <p className="text-xs text-gray-500">/{product.slug}</p>
                       </div>
                     </td>
@@ -79,8 +79,8 @@ export default async function AdminArticlesPage() {
                       <span
                         className={
                           product.isAvailable
-                            ? "rounded-full bg-green-500/20 px-2 py-1 text-xs text-green-400"
-                            : "rounded-full bg-red-500/20 px-2 py-1 text-xs text-red-400"
+                            ? "rounded-full bg-green-50 px-2 py-1 text-xs text-green-600"
+                            : "rounded-full bg-red-50 px-2 py-1 text-xs text-red-500"
                         }
                       >
                         {product.isAvailable ? "Disponible" : "Indisponible"}

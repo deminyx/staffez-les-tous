@@ -82,11 +82,11 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl">
-      <div className="rounded-xl border border-white/10 bg-surface-dark p-6">
+      <div className="card p-6">
         <div className="space-y-4">
           {/* Title */}
           <div>
-            <label htmlFor="title" className="mb-1 block text-sm font-medium text-gray-300">
+            <label htmlFor="title" className="mb-1 block text-sm font-medium text-gray-600">
               Titre
             </label>
             <input
@@ -101,13 +101,13 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
                   if (slugInput) slugInput.value = generateSlug(e.target.value);
                 }
               }}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white placeholder:text-gray-600 focus:border-brand-red focus:outline-none"
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black placeholder:text-gray-400 focus:border-brand-red focus:outline-none"
             />
           </div>
 
           {/* Slug */}
           <div>
-            <label htmlFor="slug" className="mb-1 block text-sm font-medium text-gray-300">
+            <label htmlFor="slug" className="mb-1 block text-sm font-medium text-gray-600">
               Slug
             </label>
             <input
@@ -116,13 +116,13 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
               type="text"
               required
               defaultValue={defaultValues?.slug}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white placeholder:text-gray-600 focus:border-brand-red focus:outline-none"
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black placeholder:text-gray-400 focus:border-brand-red focus:outline-none"
             />
           </div>
 
           {/* Description */}
           <div>
-            <label htmlFor="description" className="mb-1 block text-sm font-medium text-gray-300">
+            <label htmlFor="description" className="mb-1 block text-sm font-medium text-gray-600">
               Description
             </label>
             <textarea
@@ -131,13 +131,13 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
               rows={4}
               required
               defaultValue={defaultValues?.description}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white placeholder:text-gray-600 focus:border-brand-red focus:outline-none"
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black placeholder:text-gray-400 focus:border-brand-red focus:outline-none"
             />
           </div>
 
           {/* Image URL */}
           <div>
-            <label htmlFor="image" className="mb-1 block text-sm font-medium text-gray-300">
+            <label htmlFor="image" className="mb-1 block text-sm font-medium text-gray-600">
               URL de l&apos;image
             </label>
             <input
@@ -145,14 +145,14 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
               name="image"
               type="text"
               defaultValue={defaultValues?.image}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white placeholder:text-gray-600 focus:border-brand-red focus:outline-none"
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black placeholder:text-gray-400 focus:border-brand-red focus:outline-none"
             />
           </div>
 
           {/* Prices */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="priceMember" className="mb-1 block text-sm font-medium text-gray-300">
+              <label htmlFor="priceMember" className="mb-1 block text-sm font-medium text-gray-600">
                 Prix adherent (centimes)
               </label>
               <input
@@ -162,11 +162,11 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
                 min="0"
                 required
                 defaultValue={defaultValues?.priceMember ?? 0}
-                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white focus:border-brand-red focus:outline-none"
+                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black focus:border-brand-red focus:outline-none"
               />
             </div>
             <div>
-              <label htmlFor="pricePublic" className="mb-1 block text-sm font-medium text-gray-300">
+              <label htmlFor="pricePublic" className="mb-1 block text-sm font-medium text-gray-600">
                 Prix public (centimes, optionnel)
               </label>
               <input
@@ -175,7 +175,7 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
                 type="number"
                 min="0"
                 defaultValue={defaultValues?.pricePublic ?? ""}
-                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white focus:border-brand-red focus:outline-none"
+                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-brand-black focus:border-brand-red focus:outline-none"
               />
             </div>
           </div>
@@ -187,9 +187,9 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
               name="isAvailable"
               type="checkbox"
               defaultChecked={defaultValues?.isAvailable ?? true}
-              className="h-4 w-4 rounded border-white/10 bg-white/5 text-brand-red focus:ring-brand-red"
+              className="h-4 w-4 rounded border-gray-200 bg-gray-50 text-brand-red focus:ring-brand-red"
             />
-            <label htmlFor="isAvailable" className="text-sm text-gray-300">
+            <label htmlFor="isAvailable" className="text-sm text-gray-600">
               Article disponible a la vente
             </label>
           </div>
@@ -197,7 +197,7 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
           {/* Variants */}
           <div>
             <div className="mb-2 flex items-center justify-between">
-              <label className="text-sm font-medium text-gray-300">Variantes</label>
+              <label className="text-sm font-medium text-gray-600">Variantes</label>
               <button
                 type="button"
                 onClick={addVariant}
@@ -214,7 +214,7 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
                     placeholder="Label (ex: S, M, L)"
                     value={variant.label}
                     onChange={(e) => updateVariant(index, "label", e.target.value)}
-                    className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:border-brand-red focus:outline-none"
+                    className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-brand-black focus:border-brand-red focus:outline-none"
                   />
                   <input
                     type="number"
@@ -222,13 +222,13 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
                     min="0"
                     value={variant.stock}
                     onChange={(e) => updateVariant(index, "stock", parseInt(e.target.value) || 0)}
-                    className="w-24 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:border-brand-red focus:outline-none"
+                    className="w-24 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-brand-black focus:border-brand-red focus:outline-none"
                   />
                   {variants.length > 1 && (
                     <button
                       type="button"
                       onClick={() => removeVariant(index)}
-                      className="text-gray-500 hover:text-red-400"
+                      className="text-gray-400 hover:text-red-500"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -239,9 +239,7 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
           </div>
         </div>
 
-        {error && (
-          <div className="mt-4 rounded-lg bg-red-500/10 p-3 text-sm text-red-400">{error}</div>
-        )}
+        {error && <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-500">{error}</div>}
 
         <div className="mt-6 flex gap-3">
           <button
@@ -254,7 +252,7 @@ export const ProductForm = ({ productId, defaultValues }: ProductFormProps) => {
           <button
             type="button"
             onClick={() => router.push("/admin/boutique/articles")}
-            className="rounded-lg bg-white/5 px-6 py-2 text-sm text-gray-400 transition-colors hover:bg-white/10"
+            className="rounded-lg bg-gray-50 px-6 py-2 text-sm text-gray-500 transition-colors hover:bg-gray-100"
           >
             Annuler
           </button>

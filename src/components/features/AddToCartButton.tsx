@@ -50,7 +50,7 @@ export const AddToCartButton = ({
       {/* Variant selector */}
       {variants.length > 1 && (
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-300">Variante</label>
+          <label className="mb-2 block text-sm font-medium text-gray-600">Variante</label>
           <div className="flex flex-wrap gap-2">
             {variants.map((v) => (
               <button
@@ -63,10 +63,10 @@ export const AddToCartButton = ({
                 className={cn(
                   "rounded-lg border px-4 py-2 text-sm font-medium transition-all",
                   selectedVariant === v.id
-                    ? "border-brand-red bg-brand-red/20 text-white"
+                    ? "border-brand-red bg-brand-red/10 text-brand-red"
                     : v.stock === 0
-                      ? "cursor-not-allowed border-white/5 text-gray-600 line-through"
-                      : "border-white/10 text-gray-400 hover:border-white/30 hover:text-white",
+                      ? "cursor-not-allowed border-gray-100 text-gray-400 line-through"
+                      : "border-gray-200 text-gray-500 hover:border-gray-300 hover:text-brand-black",
                 )}
               >
                 {v.label}
@@ -80,18 +80,18 @@ export const AddToCartButton = ({
       {/* Quantity */}
       {variant && variant.stock > 0 && (
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-300">Quantite</label>
+          <label className="mb-2 block text-sm font-medium text-gray-600">Quantite</label>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white hover:bg-white/5"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-brand-black hover:bg-gray-50"
             >
               -
             </button>
-            <span className="w-8 text-center text-white">{quantity}</span>
+            <span className="w-8 text-center text-brand-black">{quantity}</span>
             <button
               onClick={() => setQuantity(Math.min(variant.stock, quantity + 1))}
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white hover:bg-white/5"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-brand-black hover:bg-gray-50"
             >
               +
             </button>

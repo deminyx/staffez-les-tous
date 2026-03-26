@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 import { cn } from "@/lib/utils";
 
@@ -23,6 +24,7 @@ const NAV_LINKS: NavLink[] = [
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   const toggleMenu = () => setMobileMenuOpen((prev) => !prev);
   const closeMenu = () => setMobileMenuOpen(false);
@@ -57,9 +59,7 @@ export const Header = () => {
                 href={link.href}
                 className={cn(
                   "rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-50 hover:text-brand-red",
-                  pathname === link.href
-                    ? "text-brand-red"
-                    : "text-gray-700",
+                  pathname === link.href ? "text-brand-red" : "text-gray-700",
                 )}
               >
                 {link.label}
@@ -68,8 +68,25 @@ export const Header = () => {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:block">
+        {/* Desktop CTA + Login */}
+        <div className="hidden items-center gap-3 md:flex">
+          {session?.user ? (
+            <Link
+              href="/espace-membre"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-brand-red"
+            >
+              Mon espace
+            </Link>
+          ) : (
+            <Link
+              href="/connexion"
+              className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-50 hover:text-brand-red"
+              aria-label="Se connecter"
+            >
+              <LogIn className="h-4 w-4" aria-hidden="true" />
+              Connexion
+            </Link>
+          )}
           <Link href="/recrutement" className="btn-primary text-sm">
             Rejoindre l&apos;equipe
           </Link>
@@ -84,20 +101,13 @@ export const Header = () => {
           aria-controls="mobile-menu"
           aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
         >
-          {mobileMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
+          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </nav>
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div
-          id="mobile-menu"
-          className="border-t border-gray-100 bg-white md:hidden"
-        >
+        <div id="mobile-menu" className="border-t border-gray-100 bg-white md:hidden">
           <ul className="space-y-1 px-4 py-4">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
@@ -105,9 +115,7 @@ export const Header = () => {
                   href={link.href}
                   className={cn(
                     "block rounded-lg px-3 py-2 text-base font-medium transition-colors hover:bg-gray-50 hover:text-brand-red",
-                    pathname === link.href
-                      ? "bg-gray-50 text-brand-red"
-                      : "text-gray-700",
+                    pathname === link.href ? "bg-gray-50 text-brand-red" : "text-gray-700",
                   )}
                   onClick={closeMenu}
                 >
@@ -116,7 +124,25 @@ export const Header = () => {
               </li>
             ))}
           </ul>
-          <div className="border-t border-gray-100 px-4 py-4">
+          <div className="space-y-2 border-t border-gray-100 px-4 py-4">
+            {session?.user ? (
+              <Link
+                href="/espace-membre"
+                className="block rounded-lg px-3 py-2 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-brand-red"
+                onClick={closeMenu}
+              >
+                Mon espace
+              </Link>
+            ) : (
+              <Link
+                href="/connexion"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-gray-500 transition-colors hover:bg-gray-50 hover:text-brand-red"
+                onClick={closeMenu}
+              >
+                <LogIn className="h-4 w-4" aria-hidden="true" />
+                Connexion
+              </Link>
+            )}
             <Link
               href="/recrutement"
               className="btn-primary block w-full text-center"
