@@ -4,6 +4,8 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { requireRole, requireAuth } from "@/lib/permissions";
 import { logAuditAction } from "@/services/audit";
+import bcrypt from "bcryptjs";
+import { generateUniqueUsername, generateSecurePassword } from "@/services/membres";
 import {
   updateUserRolesSchema,
   toggleUserActiveSchema,
@@ -11,6 +13,8 @@ import {
   publicationFormSchema,
   validatePublicationSchema,
   updateInscriptionStatusSchema,
+  createMemberSchema,
+  regeneratePasswordSchema,
 } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 
@@ -622,6 +626,134 @@ export async function updateInscriptionStatus(formData: FormData): Promise<Actio
       return { success: false, error: "Acces non autorise." };
     }
     console.error("Erreur lors de la mise a jour de l'inscription:", error);
+    return { success: false, error: "Une erreur est survenue. Veuillez reessayer." };
+  }
+}
+
+// ─── CREATION DE MEMBRE ──────────────────────────────────
+
+interface CreateMemberResult {
+  success: boolean;
+  error?: string;
+  /** Identifiant genere, retourne pour affichage apres creation */
+  username?: string;
+  /** Mot de passe genere en clair, a transmettre une seule fois */
+  temporaryPassword?: string;
+}
+
+export async function createMember(formData: FormData): Promise<CreateMemberResult> {
+  try {
+    const session = await auth();
+    requireAuth(session);
+    requireRole(session, ["ADMINISTRATEUR", "DEVELOPPEUR"]);
+
+    const rawData = {
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      email: formData.get("email") as string,
+      phone: (formData.get("phone") as string) || "",
+    };
+
+    const parsed = createMemberSchema.safeParse(rawData);
+    if (!parsed.success) {
+      const firstError = parsed.error.errors[0]?.message ?? "Donnees invalides.";
+      return { success: false, error: firstError };
+    }
+
+    // Verifier unicite de l'email
+    const emailExists = await prisma.user.findUnique({
+      where: { email: parsed.data.email },
+      select: { id: true },
+    });
+    if (emailExists) {
+      return { success: false, error: "Un compte avec cette adresse e-mail existe deja." };
+    }
+
+    // Generer identifiant unique et mot de passe temporaire
+    const username = await generateUniqueUsername(parsed.data.firstName, parsed.data.lastName);
+    const temporaryPassword = generateSecurePassword();
+    const hashedPassword = await bcrypt.hash(temporaryPassword, 12);
+
+    await prisma.user.create({
+      data: {
+        firstName: parsed.data.firstName,
+        lastName: parsed.data.lastName,
+        email: parsed.data.email,
+        phone: parsed.data.phone || null,
+        username,
+        passwordHash: hashedPassword,
+        isActive: true,
+      },
+    });
+
+    await logAuditAction({
+      userId: session.user.id,
+      action: "CREATE_MEMBER",
+      target: `user:${username}`,
+    });
+
+    revalidatePath("/admin/utilisateurs");
+    return { success: true, username, temporaryPassword };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Acces non autorise.") {
+      return { success: false, error: "Acces non autorise." };
+    }
+    console.error("Erreur lors de la creation du membre:", error);
+    return { success: false, error: "Une erreur est survenue. Veuillez reessayer." };
+  }
+}
+
+// ─── REGENERATION DU MOT DE PASSE ────────────────────────
+
+interface RegeneratePasswordResult {
+  success: boolean;
+  error?: string;
+  /** Nouveau mot de passe temporaire en clair */
+  temporaryPassword?: string;
+}
+
+export async function regeneratePassword(formData: FormData): Promise<RegeneratePasswordResult> {
+  try {
+    const session = await auth();
+    requireAuth(session);
+    requireRole(session, ["ADMINISTRATEUR", "DEVELOPPEUR"]);
+
+    const parsed = regeneratePasswordSchema.safeParse({
+      userId: formData.get("userId") as string,
+    });
+    if (!parsed.success) {
+      const firstError = parsed.error.errors[0]?.message ?? "Donnees invalides.";
+      return { success: false, error: firstError };
+    }
+
+    const targetUser = await prisma.user.findUnique({
+      where: { id: parsed.data.userId },
+      select: { id: true, username: true },
+    });
+    if (!targetUser) {
+      return { success: false, error: "Utilisateur introuvable." };
+    }
+
+    const temporaryPassword = generateSecurePassword();
+    const hashedPassword = await bcrypt.hash(temporaryPassword, 12);
+
+    await prisma.user.update({
+      where: { id: parsed.data.userId },
+      data: { passwordHash: hashedPassword },
+    });
+
+    await logAuditAction({
+      userId: session.user.id,
+      action: "REGENERATE_PASSWORD",
+      target: `user:${targetUser.username}`,
+    });
+
+    return { success: true, temporaryPassword };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Acces non autorise.") {
+      return { success: false, error: "Acces non autorise." };
+    }
+    console.error("Erreur lors de la regeneration du mot de passe:", error);
     return { success: false, error: "Une erreur est survenue. Veuillez reessayer." };
   }
 }

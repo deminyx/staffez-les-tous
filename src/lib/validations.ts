@@ -341,3 +341,33 @@ export const organisateursFormSchema = z.object({
 });
 
 export type OrganisateursFormInput = z.infer<typeof organisateursFormSchema>;
+
+// ─── Admin : Creation de membre ───────────────────────────
+
+export const createMemberSchema = z.object({
+  firstName: z
+    .string()
+    .min(1, "Le prenom est requis")
+    .max(100, "Le prenom ne peut pas depasser 100 caracteres"),
+  lastName: z
+    .string()
+    .min(1, "Le nom est requis")
+    .max(100, "Le nom ne peut pas depasser 100 caracteres"),
+  email: z
+    .string()
+    .min(1, "L'adresse e-mail est requise")
+    .email("L'adresse e-mail n'est pas valide"),
+  phone: z
+    .string()
+    .max(20, "Le telephone ne peut pas depasser 20 caracteres")
+    .optional()
+    .or(z.literal("")),
+});
+
+export type CreateMemberInput = z.infer<typeof createMemberSchema>;
+
+export const regeneratePasswordSchema = z.object({
+  userId: z.string().min(1, "L'identifiant de l'utilisateur est requis"),
+});
+
+export type RegeneratePasswordInput = z.infer<typeof regeneratePasswordSchema>;

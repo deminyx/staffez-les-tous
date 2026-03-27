@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { Shield, UserCheck, UserX } from "lucide-react";
 
 import { updateUserRoles, toggleUserActive } from "@/app/admin/actions";
+import { RegeneratePasswordButton } from "@/components/features/RegeneratePasswordButton";
 
 interface UserRoleData {
   role: string;
@@ -153,6 +154,10 @@ export const UserRow = ({ user, events }: UserRowProps) => {
         </td>
         <td className="px-4 py-3 text-right">
           <div className="flex items-center justify-end gap-1">
+            <RegeneratePasswordButton
+              userId={user.id}
+              userName={`${user.firstName} ${user.lastName}`}
+            />
             <button
               onClick={() => setIsModalOpen(true)}
               className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-brand-black"

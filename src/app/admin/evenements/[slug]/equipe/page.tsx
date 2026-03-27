@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
@@ -93,6 +93,14 @@ export default async function TeamPage({ params }: PageProps) {
             </p>
             <p className="text-xs text-gray-500">Benevoles valides</p>
           </div>
+          <a
+            href={`/api/admin/evenements/${event.slug}/export-csv`}
+            download
+            className="btn-secondary gap-2 text-sm"
+          >
+            <Download className="h-4 w-4" aria-hidden="true" />
+            Exporter CSV
+          </a>
         </div>
       </div>
 

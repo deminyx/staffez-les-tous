@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
 import { UserRow } from "@/components/features/UserRow";
+import { CreateMemberModal } from "@/components/features/CreateMemberModal";
 
 import type { Metadata } from "next";
 
@@ -75,6 +76,7 @@ export default async function UsersPage({ searchParams }: PageProps) {
             {users.length} utilisateur{users.length !== 1 ? "s" : ""}
           </p>
         </div>
+        <CreateMemberModal />
       </div>
 
       {/* Filters */}
