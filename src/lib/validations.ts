@@ -269,3 +269,75 @@ export const submitIdeaSchema = z.object({
 });
 
 export type SubmitIdeaInput = z.infer<typeof submitIdeaSchema>;
+
+// ─── Formulaires de contact public ───────────────────────
+
+export const recrutementFormSchema = z.object({
+  firstName: z
+    .string()
+    .min(1, "Le prenom est requis")
+    .max(100, "Le prenom ne peut pas depasser 100 caracteres"),
+  lastName: z
+    .string()
+    .min(1, "Le nom est requis")
+    .max(100, "Le nom ne peut pas depasser 100 caracteres"),
+  email: z
+    .string()
+    .min(1, "L'adresse e-mail est requise")
+    .email("L'adresse e-mail n'est pas valide"),
+  phone: z
+    .string()
+    .max(20, "Le telephone ne peut pas depasser 20 caracteres")
+    .optional()
+    .or(z.literal("")),
+  events: z
+    .string()
+    .max(500, "Ce champ ne peut pas depasser 500 caracteres")
+    .optional()
+    .or(z.literal("")),
+  message: z
+    .string()
+    .min(1, "Le message est requis")
+    .max(2000, "Le message ne peut pas depasser 2000 caracteres"),
+});
+
+export type RecrutementFormInput = z.infer<typeof recrutementFormSchema>;
+
+export const organisateursFormSchema = z.object({
+  orgName: z
+    .string()
+    .min(1, "Le nom de l'organisation est requis")
+    .max(200, "Le nom de l'organisation ne peut pas depasser 200 caracteres"),
+  eventName: z
+    .string()
+    .min(1, "Le nom de l'evenement est requis")
+    .max(200, "Le nom de l'evenement ne peut pas depasser 200 caracteres"),
+  firstName: z
+    .string()
+    .min(1, "Le prenom est requis")
+    .max(100, "Le prenom ne peut pas depasser 100 caracteres"),
+  lastName: z
+    .string()
+    .min(1, "Le nom est requis")
+    .max(100, "Le nom ne peut pas depasser 100 caracteres"),
+  email: z
+    .string()
+    .min(1, "L'adresse e-mail est requise")
+    .email("L'adresse e-mail n'est pas valide"),
+  phone: z
+    .string()
+    .max(20, "Le telephone ne peut pas depasser 20 caracteres")
+    .optional()
+    .or(z.literal("")),
+  eventDates: z
+    .string()
+    .max(200, "Les dates ne peuvent pas depasser 200 caracteres")
+    .optional()
+    .or(z.literal("")),
+  message: z
+    .string()
+    .min(1, "La description est requise")
+    .max(2000, "La description ne peut pas depasser 2000 caracteres"),
+});
+
+export type OrganisateursFormInput = z.infer<typeof organisateursFormSchema>;

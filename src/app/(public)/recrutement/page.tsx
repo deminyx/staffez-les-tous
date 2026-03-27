@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ClipboardList, UserCheck, CalendarCheck, Star, Users, Heart, Zap } from "lucide-react";
 
+import { RecrutementForm } from "@/components/features/RecrutementForm";
+
 export const metadata: Metadata = {
   title: "Recrutement benevoles",
   description:
@@ -175,117 +177,7 @@ export default function RecrutementPage() {
             Remplissez ce formulaire et nous vous recontacterons rapidement.
           </p>
 
-          <form className="space-y-6 rounded-xl border border-gray-200 bg-white p-6 shadow-md md:p-8">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="firstName"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
-                  Prenom *
-                </label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                  placeholder="Votre prenom"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="lastName"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
-                  Nom *
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                  placeholder="Votre nom"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="mb-1 block text-sm font-medium text-gray-700"
-              >
-                Adresse e-mail *
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                placeholder="votre@email.com"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="phone"
-                className="mb-1 block text-sm font-medium text-gray-700"
-              >
-                Telephone
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                placeholder="06 12 34 56 78"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="events"
-                className="mb-1 block text-sm font-medium text-gray-700"
-              >
-                Evenement(s) qui vous interessent
-              </label>
-              <input
-                type="text"
-                id="events"
-                name="events"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                placeholder="Ex : Art to Play, Manga City..."
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="mb-1 block text-sm font-medium text-gray-700"
-              >
-                Votre message *
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                rows={5}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                placeholder="Parlez-nous de vous, de vos motivations..."
-              />
-            </div>
-
-            <p className="text-xs text-gray-500">
-              * Champs obligatoires. Vos donnees sont utilisees uniquement dans
-              le cadre du recrutement et ne sont pas transmises a des tiers.
-            </p>
-
-            <button type="submit" className="btn-primary w-full py-3 text-base">
-              Envoyer ma candidature
-            </button>
-          </form>
+          <RecrutementForm />
         </div>
       </section>
     </main>

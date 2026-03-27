@@ -7,6 +7,8 @@ import {
   Check,
 } from "lucide-react";
 
+import { OrganisateursForm } from "@/components/features/OrganisateursForm";
+
 export const metadata: Metadata = {
   title: "Organisateurs — Faire appel a nos benevoles",
   description:
@@ -163,153 +165,7 @@ export default function OrganisateursPage() {
             Decrivez votre projet et nous reviendrons vers vous sous 48h.
           </p>
 
-          <form className="space-y-6 rounded-xl border border-gray-200 bg-white p-6 shadow-md md:p-8">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="orgName"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
-                  Nom de l&apos;organisation *
-                </label>
-                <input
-                  type="text"
-                  id="orgName"
-                  name="orgName"
-                  required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                  placeholder="Votre structure"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="eventName"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
-                  Nom de l&apos;evenement *
-                </label>
-                <input
-                  type="text"
-                  id="eventName"
-                  name="eventName"
-                  required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                  placeholder="Nom de votre evenement"
-                />
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="orgFirstName"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
-                  Prenom du contact *
-                </label>
-                <input
-                  type="text"
-                  id="orgFirstName"
-                  name="firstName"
-                  required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                  placeholder="Votre prenom"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="orgLastName"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
-                  Nom du contact *
-                </label>
-                <input
-                  type="text"
-                  id="orgLastName"
-                  name="lastName"
-                  required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                  placeholder="Votre nom"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="orgEmail"
-                className="mb-1 block text-sm font-medium text-gray-700"
-              >
-                Adresse e-mail *
-              </label>
-              <input
-                type="email"
-                id="orgEmail"
-                name="email"
-                required
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                placeholder="contact@votre-evenement.com"
-              />
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="orgPhone"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
-                  Telephone
-                </label>
-                <input
-                  type="tel"
-                  id="orgPhone"
-                  name="phone"
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                  placeholder="06 12 34 56 78"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="eventDates"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
-                  Dates de l&apos;evenement
-                </label>
-                <input
-                  type="text"
-                  id="eventDates"
-                  name="eventDates"
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                  placeholder="Ex : 15-17 novembre 2025"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="orgMessage"
-                className="mb-1 block text-sm font-medium text-gray-700"
-              >
-                Description de votre besoin *
-              </label>
-              <textarea
-                id="orgMessage"
-                name="message"
-                required
-                rows={5}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-1"
-                placeholder="Decrivez votre evenement, le nombre de benevoles souhaites, les missions envisagees..."
-              />
-            </div>
-
-            <p className="text-xs text-gray-500">
-              * Champs obligatoires. Vos donnees sont utilisees uniquement pour
-              traiter votre demande de partenariat.
-            </p>
-
-            <button type="submit" className="btn-primary w-full py-3 text-base">
-              Envoyer la demande
-            </button>
-          </form>
+          <OrganisateursForm />
         </div>
       </section>
     </main>

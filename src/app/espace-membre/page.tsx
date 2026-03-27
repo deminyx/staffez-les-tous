@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "Tableau de bord",
@@ -20,7 +21,31 @@ export default async function DashboardPage() {
   const session = await auth();
   if (!session?.user) redirect("/connexion");
 
-  const { firstName, lastName } = session.user;
+  const { firstName, lastName, id: userId } = session.user;
+
+  const [upcomingCount, pendingCount, validatedCount] = await Promise.all([
+    prisma.inscription.count({
+      where: {
+        userId,
+        event: {
+          startDate: { gte: new Date() },
+          status: "PUBLIE",
+        },
+      },
+    }),
+    prisma.inscription.count({
+      where: {
+        userId,
+        status: "EN_ATTENTE",
+      },
+    }),
+    prisma.inscription.count({
+      where: {
+        userId,
+        status: "VALIDEE",
+      },
+    }),
+  ]);
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
@@ -46,7 +71,7 @@ export default async function DashboardPage() {
               <Calendar className="h-5 w-5" aria-hidden="true" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-brand-black">0</p>
+              <p className="text-2xl font-bold text-brand-black">{upcomingCount}</p>
               <p className="text-xs text-gray-500">Evenements a venir</p>
             </div>
           </div>
@@ -58,7 +83,7 @@ export default async function DashboardPage() {
               <ClipboardList className="h-5 w-5" aria-hidden="true" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-brand-black">0</p>
+              <p className="text-2xl font-bold text-brand-black">{pendingCount}</p>
               <p className="text-xs text-gray-500">Inscriptions en attente</p>
             </div>
           </div>
@@ -70,7 +95,7 @@ export default async function DashboardPage() {
               <TrendingUp className="h-5 w-5" aria-hidden="true" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-brand-black">0</p>
+              <p className="text-2xl font-bold text-brand-black">{validatedCount}</p>
               <p className="text-xs text-gray-500">Participations totales</p>
             </div>
           </div>
