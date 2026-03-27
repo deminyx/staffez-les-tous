@@ -19,6 +19,11 @@ export default async function UsersPage({ searchParams }: PageProps) {
   const session = await auth();
   if (!session?.user) redirect("/connexion");
 
+  const canAccess = session.user.roles?.some(
+    (r) => r.role === "ADMINISTRATEUR" || r.role === "DEVELOPPEUR",
+  );
+  if (!canAccess) redirect("/admin");
+
   const params = await searchParams;
   const search = params.search ?? "";
   const roleFilter = params.role ?? "";

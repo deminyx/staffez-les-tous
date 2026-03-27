@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { requireAuth, requireRole } from "@/lib/permissions";
 
 import type { Metadata } from "next";
 
@@ -14,8 +13,11 @@ export const metadata: Metadata = {
 export default async function AdminBoutiquePage() {
   const session = await auth();
   if (!session?.user) redirect("/connexion");
-  requireAuth(session);
-  requireRole(session, ["ADMINISTRATEUR", "DEVELOPPEUR"]);
+
+  const canAccess = session.user.roles?.some(
+    (r) => r.role === "ADMINISTRATEUR" || r.role === "DEVELOPPEUR",
+  );
+  if (!canAccess) redirect("/admin");
 
   const [productsCount, ordersCount, pendingOrders] = await Promise.all([
     prisma.product.count(),

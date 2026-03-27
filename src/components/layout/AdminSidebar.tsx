@@ -20,8 +20,17 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import type { Role } from "@prisma/client";
 
-const NAV_ITEMS = [
+type NavItem = {
+  label: string;
+  href: string;
+  icon: React.ElementType;
+  /** Roles autorisees a voir cet element. undefined = visible par tous les admins. */
+  allowedRoles?: Role[];
+};
+
+const NAV_ITEMS: NavItem[] = [
   {
     label: "Tableau de bord",
     href: "/admin",
@@ -31,32 +40,46 @@ const NAV_ITEMS = [
     label: "Utilisateurs",
     href: "/admin/utilisateurs",
     icon: Users,
+    allowedRoles: ["ADMINISTRATEUR", "DEVELOPPEUR"],
   },
   {
     label: "Evenements",
     href: "/admin/evenements",
     icon: Calendar,
+    allowedRoles: ["ADMINISTRATEUR", "DEVELOPPEUR", "COORDINATEUR"],
   },
   {
     label: "Publications",
     href: "/admin/publications",
     icon: FileText,
+    allowedRoles: ["ADMINISTRATEUR", "DEVELOPPEUR", "EDITEUR"],
   },
   {
     label: "Boutique",
     href: "/admin/boutique",
     icon: ShoppingBag,
+    allowedRoles: ["ADMINISTRATEUR", "DEVELOPPEUR"],
   },
   {
     label: "Vie associative",
     href: "/admin/vie-associative",
     icon: Heart,
+    allowedRoles: ["ADMINISTRATEUR", "DEVELOPPEUR"],
   },
 ];
 
-export const AdminSidebar = () => {
+export interface AdminSidebarProps {
+  userRoles: Role[];
+}
+
+export const AdminSidebar = ({ userRoles }: AdminSidebarProps) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  const visibleItems = NAV_ITEMS.filter((item) => {
+    if (!item.allowedRoles) return true;
+    return item.allowedRoles.some((r) => userRoles.includes(r));
+  });
 
   const isActive = (href: string) => {
     if (href === "/admin") return pathname === href;
@@ -107,7 +130,7 @@ export const AdminSidebar = () => {
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Navigation administration">
           <ul className="space-y-1">
-            {NAV_ITEMS.map((item) => (
+            {visibleItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}

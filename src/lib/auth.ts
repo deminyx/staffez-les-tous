@@ -4,14 +4,58 @@ import bcrypt from "bcryptjs";
 
 import { prisma } from "@/lib/prisma";
 import { loginSchema } from "@/lib/validations";
+import { MAX_LOGIN_ATTEMPTS, RATE_LIMIT_WINDOW_MS } from "@/lib/constants";
 
 import type { Role } from "@prisma/client";
+
+// ─── Rate limiting en memoire ─────────────────────────────
+// Cle : identifiant (username) normalisé
+// Valeur : { count: number; firstAttempt: number }
+// Note : en prod multi-instance, remplacer par Redis (Upstash).
+
+interface RateLimitEntry {
+  count: number;
+  firstAttempt: number;
+}
+
+const loginAttempts = new Map<string, RateLimitEntry>();
+
+function isRateLimited(identifier: string): boolean {
+  const now = Date.now();
+  const entry = loginAttempts.get(identifier);
+
+  if (!entry) return false;
+
+  // La fenetre a expire → on efface et on laisse passer
+  if (now - entry.firstAttempt > RATE_LIMIT_WINDOW_MS) {
+    loginAttempts.delete(identifier);
+    return false;
+  }
+
+  return entry.count >= MAX_LOGIN_ATTEMPTS;
+}
+
+function recordFailedAttempt(identifier: string): void {
+  const now = Date.now();
+  const entry = loginAttempts.get(identifier);
+
+  if (!entry || now - entry.firstAttempt > RATE_LIMIT_WINDOW_MS) {
+    loginAttempts.set(identifier, { count: 1, firstAttempt: now });
+  } else {
+    loginAttempts.set(identifier, { count: entry.count + 1, firstAttempt: entry.firstAttempt });
+  }
+}
+
+function clearFailedAttempts(identifier: string): void {
+  loginAttempts.delete(identifier);
+}
 
 /**
  * Configuration NextAuth.js v5.
  *
  * - Provider : Credentials (identifiant + mot de passe)
  * - Session : JWT (pas de table session en base)
+ * - Rate limiting en memoire : MAX_LOGIN_ATTEMPTS tentatives / RATE_LIMIT_WINDOW_MS
  * - Les roles sont charges dans le token au login et rafraichis via le callback jwt
  */
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -26,9 +70,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (!parsed.success) return null;
 
         const { username, password } = parsed.data;
+        const normalizedUsername = username.toLowerCase();
+
+        // ─ Rate limiting ─────────────────────────────────
+        if (isRateLimited(normalizedUsername)) {
+          // On retourne null sans distinguer "compte bloque" de "mauvais mdp"
+          // pour ne pas faciliter l'enumeration d'utilisateurs.
+          return null;
+        }
 
         const user = await prisma.user.findUnique({
-          where: { username: username.toLowerCase() },
+          where: { username: normalizedUsername },
           include: {
             roles: {
               select: {
@@ -39,10 +91,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           },
         });
 
-        if (!user || !user.isActive) return null;
+        if (!user || !user.isActive) {
+          recordFailedAttempt(normalizedUsername);
+          return null;
+        }
 
         const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
-        if (!isPasswordValid) return null;
+        if (!isPasswordValid) {
+          recordFailedAttempt(normalizedUsername);
+          return null;
+        }
+
+        // Succes : on efface les tentatives echouees
+        clearFailedAttempts(normalizedUsername);
 
         return {
           id: user.id,

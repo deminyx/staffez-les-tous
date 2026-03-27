@@ -1,9 +1,18 @@
-import { AdminSidebar } from "@/components/layout/AdminSidebar";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+import { AdminSidebar } from "@/components/layout/AdminSidebar";
+import type { Role } from "@prisma/client";
+
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+  if (!session?.user) redirect("/connexion");
+
+  const userRoles = (session.user.roles ?? []).map((r) => r.role) as Role[];
+
   return (
     <div className="flex min-h-screen bg-surface-light">
-      <AdminSidebar />
+      <AdminSidebar userRoles={userRoles} />
 
       {/* Main content area — offset by sidebar width on desktop */}
       <main

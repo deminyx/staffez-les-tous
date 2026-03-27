@@ -28,6 +28,11 @@ export default async function AdminEventsPage() {
   const session = await auth();
   if (!session?.user) redirect("/connexion");
 
+  const canAccess = session.user.roles?.some(
+    (r) => r.role === "ADMINISTRATEUR" || r.role === "DEVELOPPEUR" || r.role === "COORDINATEUR",
+  );
+  if (!canAccess) redirect("/admin");
+
   const events = await prisma.event.findMany({
     include: {
       _count: { select: { inscriptions: true } },

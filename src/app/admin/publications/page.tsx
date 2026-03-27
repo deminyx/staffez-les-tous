@@ -39,6 +39,11 @@ export default async function PublicationsPage({ searchParams }: PageProps) {
   const session = await auth();
   if (!session?.user) redirect("/connexion");
 
+  const canAccess = session.user.roles?.some(
+    (r) => r.role === "ADMINISTRATEUR" || r.role === "DEVELOPPEUR" || r.role === "EDITEUR",
+  );
+  if (!canAccess) redirect("/admin");
+
   const params = await searchParams;
   const statusFilter = params.status ?? "";
 
